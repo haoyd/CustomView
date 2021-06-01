@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CustomView">
-        <activity android:name=".CircleImageActivity"></activity>
+        <activity android:name=".ClearEditActivity"></activity>
+        <activity android:name=".CircleImageActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

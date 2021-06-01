@@ -34,6 +34,9 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
             0 -> {
                 startActivity(Intent(this, CircleImageActivity::class.java))
             }
+            1 -> {
+                startActivity(Intent(this, ClearEditActivity::class.java))
+            }
             else -> {
             }
         }
