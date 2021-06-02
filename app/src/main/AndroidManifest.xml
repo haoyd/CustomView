@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CustomView">
-        <activity android:name=".LetterIndexActivity"></activity>
+        <activity android:name=".SimpleDrawActivity"></activity>
+        <activity android:name=".LetterIndexActivity" />
         <activity android:name=".ClearEditActivity" />
         <activity android:name=".CircleImageActivity" />
         <activity android:name=".MainActivity">

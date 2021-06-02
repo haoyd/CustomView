@@ -14,9 +14,8 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     private val pages = listOf(
             "圆形图片",
             "带删除功能的输入框",
+            "绘制简单图形",
             "列表检索功能",
-            "圆形图片",
-            "圆形图片",
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,9 +37,10 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
                 startActivity(Intent(this, ClearEditActivity::class.java))
             }
             2 -> {
-                startActivity(Intent(this, LetterIndexActivity::class.java))
+                startActivity(Intent(this, SimpleDrawActivity::class.java))
             }
             else -> {
+                startActivity(Intent(this, LetterIndexActivity::class.java))
             }
         }
     }
