@@ -37,6 +37,9 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
             1 -> {
                 startActivity(Intent(this, ClearEditActivity::class.java))
             }
+            2 -> {
+                startActivity(Intent(this, LetterIndexActivity::class.java))
+            }
             else -> {
             }
         }
