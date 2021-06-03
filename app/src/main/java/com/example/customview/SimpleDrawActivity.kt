@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.blankj.utilcode.util.ConvertUtils
 import com.example.customview.views.shapes.CustomCircleView
 import com.example.customview.views.shapes.CustomRectangleView
+import com.example.customview.views.shapes.CustomStarView
 import com.example.customview.views.shapes.CustomTriangleView
 import kotlinx.android.synthetic.main.activity_simple_draw.*
 
@@ -36,5 +37,9 @@ class SimpleDrawActivity : AppCompatActivity() {
 
     fun drawTriangle(view: View) {
         setView(CustomTriangleView(this))
+    }
+
+    fun drawStar(view: View) {
+        setView(CustomStarView(this))
     }
 }

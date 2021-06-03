@@ -6,13 +6,22 @@
     android:orientation="vertical"
     tools:context=".SimpleDrawActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:text="放映厅"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
     <RelativeLayout
         android:id="@+id/cinema"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="2dp"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/bg_side_black"
+        android:background="@drawable/bg_side_gray"
         android:gravity="center">
 
     </RelativeLayout>
@@ -45,6 +54,12 @@
                 android:layout_height="wrap_content"
                 android:text="三角形"
                 android:onClick="drawTriangle" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="星星"
+                android:onClick="drawStar" />
 
         </LinearLayout>
     </ScrollView>
