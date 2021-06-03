@@ -14,6 +14,10 @@ import kotlin.math.sin
 class CustomStarView : CustomView {
 
     var mAngleNum = 5
+        set(value) {
+            field = value
+            invalidate()
+        }
 
     private var outRadius = 0f
     private var internalRadius = 0f
@@ -26,16 +30,6 @@ class CustomStarView : CustomView {
         defStyleAttr
     )
 
-    @SuppressLint("DrawAllocation")
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        val outArray = mutableListOf(
-            Pair(cos(90f) * outRadius, -sin(90f) * outRadius),
-            Pair(cos(54f) * internalRadius, -sin(54f) * internalRadius),
-            Pair(cos(18f) * outRadius, -sin(18f) * outRadius),
-        )
-    }
-
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         drawStar(canvas!!)
@@ -45,10 +39,10 @@ class CustomStarView : CustomView {
         outRadius = radius
         internalRadius = radius / 2
 
-        val averageAngle = 360f / mAngleNum
-        val outCircleAngle = 90 - averageAngle
-        val halfAverageAngle = averageAngle / 2
-        val internalAngle = halfAverageAngle + outCircleAngle
+        val averageAngle = 360f / mAngleNum                     // 计算平均角度，例如360度分5份，每一份角都为72度
+        val outCircleAngle = 90 - averageAngle                  // 计算大圆的外角的角度，从右上角为例计算，90度的角减去一份角，得出剩余的小角的角度，例如 90 - 72 = 18 度
+        val halfAverageAngle = averageAngle / 2                 // 一份平均角度的一半，例如 72 / 2 = 36度
+        val internalAngle = halfAverageAngle + outCircleAngle   // 计算出小圆内角的角度，36 + 18 = 54 度
 
         val outPoint = Point()
         val internalPoint = Point()
