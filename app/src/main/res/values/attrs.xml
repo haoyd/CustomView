@@ -2,9 +2,11 @@
 <resources>
 
     <attr name="shapeColor" format="color" />
+    <attr name="isFill" format="boolean" />
 
     <declare-styleable name="CustomView">
         <attr name="shapeColor" />
+        <attr name="isFill" />
     </declare-styleable>
 
 </resources>

@@ -15,6 +15,7 @@ open class CustomView : View {
 
     private val sideWidth = ConvertUtils.dp2px(2f).toFloat()
 
+    private var isFill = false
     private var mColor = Color.parseColor("#000000")
 
     protected val mPaint = Paint()
@@ -45,6 +46,7 @@ open class CustomView : View {
         if (attrs != null) {
             val typeArray = context?.theme?.obtainStyledAttributes(attrs, R.styleable.CustomView, defStyleAttr, 0)
             mColor = typeArray!!.getColor(R.styleable.CustomView_shapeColor, Color.parseColor("#000000"))
+            isFill = typeArray!!.getBoolean(R.styleable.CustomView_isFill, false)
             typeArray.recycle()
         }
 
@@ -127,7 +129,7 @@ open class CustomView : View {
     private fun init() {
         mPaint.isAntiAlias = true
         mPaint.color = mColor
-        mPaint.style = Paint.Style.STROKE
+        mPaint.style = if (isFill) Paint.Style.FILL else Paint.Style.STROKE
         mPaint.strokeWidth = sideWidth
     }
 }
