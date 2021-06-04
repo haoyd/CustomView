@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".pages.LetterIndexActivity">
+    tools:context=".pages.AnimEntranceActivity">
 
-    <com.example.customview.views.LetterIndexView
+    <ListView
+        android:id="@+id/mListView"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_marginTop="50dp"/>
+        android:layout_height="match_parent" />
 
 </FrameLayout>

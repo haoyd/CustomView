@@ -7,20 +7,23 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.example.customview.common.Env
+import com.example.customview.pages.*
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
+class MainActivity : BaseActivity(), AdapterView.OnItemClickListener {
 
     private val pages = listOf(
             "圆形图片",
             "带删除功能的输入框",
             "绘制简单图形",
             "列表检索功能",
+            "动画入口",
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        title = "主页"
         Env.app = application
 
         mListView.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, pages)
@@ -29,18 +32,25 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 
     override
     fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        val title = pages[position]
         when (position) {
             0 -> {
-                startActivity(Intent(this, CircleImageActivity::class.java))
+                startPage(CircleImageActivity::class.java, title)
             }
             1 -> {
-                startActivity(Intent(this, ClearEditActivity::class.java))
+                startPage(ClearEditActivity::class.java, title)
             }
             2 -> {
-                startActivity(Intent(this, SimpleDrawActivity::class.java))
+                startPage(SimpleDrawActivity::class.java, title)
+            }
+            3 -> {
+                startPage(LetterIndexActivity::class.java, title)
+            }
+            4 -> {
+                startPage(AnimEntranceActivity::class.java, title)
             }
             else -> {
-                startActivity(Intent(this, LetterIndexActivity::class.java))
+                startPage(LetterIndexActivity::class.java, title)
             }
         }
     }

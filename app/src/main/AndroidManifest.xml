@@ -9,10 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CustomView">
-        <activity android:name=".SimpleDrawActivity"></activity>
-        <activity android:name=".LetterIndexActivity" />
-        <activity android:name=".ClearEditActivity" />
-        <activity android:name=".CircleImageActivity" />
+        <activity android:name=".pages.anim.ValueAnimActivity"></activity>
+        <activity android:name=".pages.anim.FrameAnimActivity" />
+        <activity android:name=".pages.anim.TweenAnimActivity" />
+        <activity android:name=".pages.AnimEntranceActivity" />
+        <activity android:name=".pages.SimpleDrawActivity" />
+        <activity android:name=".pages.LetterIndexActivity" />
+        <activity android:name=".pages.ClearEditActivity" />
+        <activity android:name=".pages.CircleImageActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

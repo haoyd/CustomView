@@ -1,14 +1,16 @@
-package com.example.customview
+package com.example.customview.pages
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import com.blankj.utilcode.util.ConvertUtils
+import com.example.customview.BaseActivity
+import com.example.customview.R
 import com.example.customview.views.shapes.*
 import kotlinx.android.synthetic.main.activity_simple_draw.*
 
-class SimpleDrawActivity : AppCompatActivity() {
+class SimpleDrawActivity : BaseActivity() {
 
     private val dp50 = ConvertUtils.dp2px(50f)
     private val lp = ViewGroup.LayoutParams(dp50, dp50)
