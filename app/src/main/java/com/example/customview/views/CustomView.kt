@@ -9,10 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.LogUtils
+import com.example.customview.R
 
 open class CustomView : View {
 
     private val sideWidth = ConvertUtils.dp2px(2f).toFloat()
+
+    private var mColor = 0
 
     protected val mPaint = Paint()
 
@@ -31,6 +34,7 @@ open class CustomView : View {
     private var sx = 0
     private var sy = 0
 
+
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
@@ -38,6 +42,12 @@ open class CustomView : View {
         attrs,
         defStyleAttr
     ) {
+        if (attrs != null) {
+            val typeArray = context?.theme?.obtainStyledAttributes(attrs, R.styleable.CustomView, defStyleAttr, 0)
+            mColor = typeArray!!.getColor(R.styleable.CustomView_shapeColor, Color.parseColor("#000000"))
+            typeArray.recycle()
+        }
+
         init()
     }
 
@@ -116,7 +126,7 @@ open class CustomView : View {
 
     private fun init() {
         mPaint.isAntiAlias = true
-        mPaint.color = Color.parseColor("#000000")
+        mPaint.color = mColor
         mPaint.style = Paint.Style.STROKE
         mPaint.strokeWidth = sideWidth
     }
