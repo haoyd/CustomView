@@ -47,6 +47,12 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="椭圆"
+                android:onClick="drawOval" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="矩形"
                 android:onClick="drawRectangle" />
 

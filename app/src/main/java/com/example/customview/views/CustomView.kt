@@ -15,7 +15,7 @@ open class CustomView : View {
 
     private val sideWidth = ConvertUtils.dp2px(2f).toFloat()
 
-    private var mColor = 0
+    private var mColor = Color.parseColor("#000000")
 
     protected val mPaint = Paint()
 

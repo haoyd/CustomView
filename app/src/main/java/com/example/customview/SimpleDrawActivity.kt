@@ -5,10 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import com.blankj.utilcode.util.ConvertUtils
-import com.example.customview.views.shapes.CustomCircleView
-import com.example.customview.views.shapes.CustomRectangleView
-import com.example.customview.views.shapes.CustomStarView
-import com.example.customview.views.shapes.CustomTriangleView
+import com.example.customview.views.shapes.*
 import kotlinx.android.synthetic.main.activity_simple_draw.*
 
 class SimpleDrawActivity : AppCompatActivity() {
@@ -31,6 +28,10 @@ class SimpleDrawActivity : AppCompatActivity() {
         setView(CustomCircleView(this))
     }
 
+    fun drawOval(view: View) {
+        setView(CustomOvalView(this))
+    }
+
     fun drawRectangle(view: View) {
         setView(CustomRectangleView(this))
     }
@@ -42,4 +43,5 @@ class SimpleDrawActivity : AppCompatActivity() {
     fun drawStar(view: View) {
         setView(CustomStarView(this))
     }
+
 }
