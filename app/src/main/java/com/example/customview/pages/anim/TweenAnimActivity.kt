@@ -40,15 +40,15 @@ class TweenAnimActivity : BaseActivity() {
     fun group(view: View) {
         val animSet = AnimationSet(this, null)
 
-        val anim1 = ScaleAnimation(0f, 2f, 0f, 2f)
+        val anim1 = AnimationUtils.loadAnimation(this, R.anim.anim_translate)
         anim1.duration = 3000
 
-        val anim2 = RotateAnimation(0f, 360f)
+        val anim2 = AlphaAnimation(0f, 1f)
         anim2.duration = 3000
 
         animSet.addAnimation(anim1)
         animSet.addAnimation(anim2)
-        
+
         mStar.startAnimation(animSet)
     }
 }
