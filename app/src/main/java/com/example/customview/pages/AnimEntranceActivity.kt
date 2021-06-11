@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import com.example.customview.BaseActivity
 import com.example.customview.R
 import com.example.customview.pages.anim.FrameAnimActivity
+import com.example.customview.pages.anim.MovePointActivity
 import com.example.customview.pages.anim.TweenAnimActivity
 import com.example.customview.pages.anim.ValueAnimActivity
 import kotlinx.android.synthetic.main.activity_anim_entrance.mListView
@@ -19,6 +20,7 @@ class AnimEntranceActivity : BaseActivity(), AdapterView.OnItemClickListener {
         "补间动画基础使用",
         "逐帧动画基础使用",
         "属性动画基础使用",
+        "移动点"
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +41,9 @@ class AnimEntranceActivity : BaseActivity(), AdapterView.OnItemClickListener {
             }
             2 -> {
                 startPage(ValueAnimActivity::class.java, title)
+            }
+            3 -> {
+                startPage(MovePointActivity::class.java, title)
             }
             else -> {
             }
