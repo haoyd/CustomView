@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CustomView">
-        <activity android:name=".pages.anim.MovePointActivity"></activity>
+        <activity android:name=".pages.anim.MoveChildActivity"></activity>
+        <activity android:name=".pages.anim.MovePointActivity" />
         <activity android:name=".pages.anim.ValueAnimActivity" />
         <activity android:name=".pages.anim.FrameAnimActivity" />
         <activity android:name=".pages.anim.TweenAnimActivity" />

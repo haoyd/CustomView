@@ -7,7 +7,6 @@ import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.util.AttributeSet
 import android.view.View
-import com.example.customview.views.CustomView
 
 class CustomPointView : View {
 
@@ -20,7 +19,7 @@ class CustomPointView : View {
     private var xPosition: Float = 0f
     private var yPosition: Float = 0f
 
-    private var isSettedPoint = false
+    private var hasSetPoint = false
 
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -43,7 +42,7 @@ class CustomPointView : View {
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         canvas?.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
-        if (!isSettedPoint) {
+        if (!hasSetPoint) {
             canvas?.drawCircle(cx, cy, 30f, mPaint)
             return
         }
@@ -54,7 +53,7 @@ class CustomPointView : View {
     fun setPosition(x: Float, y: Float) {
         xPosition = x
         yPosition = y
-        isSettedPoint = true
+        hasSetPoint = true
         invalidate()
     }
 }
