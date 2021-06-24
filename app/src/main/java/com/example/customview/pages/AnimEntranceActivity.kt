@@ -19,6 +19,7 @@ class AnimEntranceActivity : BaseActivity(), AdapterView.OnItemClickListener {
         "属性动画基础使用",
         "移动点",
         "移动子View",
+        "Lottie动画",
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +46,9 @@ class AnimEntranceActivity : BaseActivity(), AdapterView.OnItemClickListener {
             }
             4 -> {
                 startPage(MoveChildActivity::class.java, title)
+            }
+            5 -> {
+                startPage(LottieAnimActivity::class.java, "")
             }
             else -> {
             }
