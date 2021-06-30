@@ -25,6 +25,6 @@
         app:ymyy_text_color="@color/black"
         app:ymyy_text_size="48dp"
         app:ymyy_total_angle="240"
-        app:ymyy_show_anim="false"/>
+        app:ymyy_show_anim="true"/>
 
 </LinearLayout>
