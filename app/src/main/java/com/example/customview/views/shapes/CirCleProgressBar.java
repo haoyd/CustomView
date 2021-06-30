@@ -42,6 +42,7 @@ public class CirCleProgressBar extends View {
     private int duration = 1000;//动画时长
     private boolean isDefaultText;//是否设置文字显示的值
     private String mTextValue;//字体显示的值
+    private boolean showAnim = true; // 是否展示动画
 
     private int scaleSize = ConvertUtils.dp2px(4);
     private int scaleWidth = ConvertUtils.dp2px(1);
@@ -81,6 +82,7 @@ public class CirCleProgressBar extends View {
         startAngle = typedArray.getInteger(R.styleable.ymyy_CirCleProgressBar_ymyy_start_angle, 0);
         currentProgress = typedArray.getFloat(R.styleable.ymyy_CirCleProgressBar_ymyy_current_progress, 0);
         maxProgress = typedArray.getFloat(R.styleable.ymyy_CirCleProgressBar_ymyy_max_progress, 100);
+        showAnim = typedArray.getBoolean(R.styleable.ymyy_CirCleProgressBar_ymyy_show_anim, true);
         setCurrentProgress(currentProgress);
         setMaxProgress(maxProgress);
         typedArray.recycle();
@@ -109,15 +111,20 @@ public class CirCleProgressBar extends View {
     }
 
     public void setCurrentProgress(float progress) {
-        if (progress >= 0) {
-            this.currentProgress = progress;
-            if (progress > maxProgress) {
-                progress = maxProgress;
-            }
-            lastAngle = currentAngle;
-            setAnimation(lastAngle, progress * section, duration);
+        if (progress < 0) {
+            return;
         }
 
+        this.currentProgress = progress;
+        if (progress > maxProgress) {
+            progress = maxProgress;
+        }
+        lastAngle = currentAngle;
+        if (showAnim) {
+            setAnimation(lastAngle, progress * section, duration);
+        } else {
+            currentAngle = progress * section;
+        }
     }
 
     private void setAnimation(float last, float current, int duration) {
@@ -150,18 +157,23 @@ public class CirCleProgressBar extends View {
      * @param radius
      */
     private void drawCircle(Canvas canvas, int centre, int radius) {
-        circlePaint.setColor(circleBgColor);
         circlePaint.setStyle(Paint.Style.STROKE);
         circlePaint.setAntiAlias(true);
         circlePaint.setStrokeCap(Paint.Cap.ROUND);// 圆头
         circlePaint.setStrokeWidth(circleBgWidth);
+
+        /**
+         * 背景圆环
+         */
+        circlePaint.setColor(circleBgColor);
         circlePaint.setShader(null);
         RectF oval = new RectF(centre - radius - 1, centre - radius - 1, centre + radius + 1, centre + radius + 1); // 用于定义的圆弧的形状和大小的界限
-        //背景圆
         canvas.drawArc(oval, startAngle, totalAngle, false, circlePaint);
-        //数据圆
-        circlePaint.setStrokeWidth(circleWidth);
 
+        /**
+         * 进度圆环
+         */
+        circlePaint.setStrokeWidth(circleWidth);
         if (circleStartColor != 0 && circleEndColor != 0) {
             int[] colors = new int[]{circleStartColor, circleEndColor};
             LinearGradient linearGradient = new LinearGradient(0, 0, getWidth(), 0, colors, null, LinearGradient.TileMode.CLAMP);
@@ -169,6 +181,7 @@ public class CirCleProgressBar extends View {
         } else {
             circlePaint.setColor(circleColor);
         }
+
         canvas.drawArc(oval, startAngle, currentAngle, false, circlePaint);
     }
 

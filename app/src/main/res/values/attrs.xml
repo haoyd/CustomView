@@ -22,6 +22,7 @@
         <attr name="ymyy_start_angle" format="integer"/>
         <attr name="ymyy_current_progress" format="float"/>
         <attr name="ymyy_max_progress" format="float"/>
+        <attr name="ymyy_show_anim" format="boolean"/>
     </declare-styleable>
 
 </resources>
