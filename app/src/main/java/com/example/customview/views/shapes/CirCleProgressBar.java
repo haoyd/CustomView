@@ -7,10 +7,8 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.graphics.SweepGradient;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -92,82 +90,14 @@ public class CirCleProgressBar extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        /**
-         * 画最外层的大圆环
-         */
         int centre = getWidth() / 2; // 获取圆心的x坐标
         int radius = (int) (centre - circleWidth / 2) - 2; // 圆环的半径
-        circlePaint.setColor(circleBgColor);
-        circlePaint.setStyle(Paint.Style.STROKE);
-        circlePaint.setAntiAlias(true);
-        circlePaint.setStrokeCap(Paint.Cap.ROUND);// 圆头
-        circlePaint.setStrokeWidth(circleBgWidth);
-        circlePaint.setShader(null);
-        RectF oval = new RectF(centre - radius - 1, centre - radius - 1, centre + radius + 1, centre + radius + 1); // 用于定义的圆弧的形状和大小的界限
-        //背景圆
-        canvas.drawArc(oval, startAngle, totalAngle, false, circlePaint);
-        //数据圆
-        circlePaint.setStrokeWidth(circleWidth);
 
-        if (circleStartColor != 0 && circleEndColor != 0) {
-            int[] colors = new int[]{circleStartColor, circleEndColor};
-            LinearGradient linearGradient = new LinearGradient(0, 0, getWidth(), 0, colors, null, LinearGradient.TileMode.CLAMP);
-            circlePaint.setShader(linearGradient);
-        } else {
-            circlePaint.setColor(circleColor);
-        }
-        canvas.drawArc(oval, startAngle, currentAngle, false, circlePaint);
-
-        textPaint.setAntiAlias(true);
-        textPaint.setColor(textColor);
-        textPaint.setTextSize(textSize);
-        float textWidth = textPaint.measureText((int) currentProgress + "");
-        if (!isDefaultText) {
-            canvas.drawText(String.valueOf((int) currentProgress), centre - textWidth / 2, centre + textSize / 4, textPaint);
-        } else {
-            canvas.drawText(mTextValue, centre - textWidth / 2, centre + textSize / 2, textPaint);
-        }
-
-        if (!TextUtils.isEmpty(bottomText)) {
-            bottomTextPaint.setAntiAlias(true);
-            bottomTextPaint.setColor(bottomTextColor);
-            bottomTextPaint.setTextSize(bottomTextSize);
-            float bottomTextWidth = bottomTextPaint.measureText(bottomText);
-            canvas.drawText(bottomText, centre - bottomTextWidth / 2, centre + textSize / 2 + dp8, bottomTextPaint);
-        }
-
-        /**
-         * 刻度
-         */
-        scalePaint.setColor(scaleColor);
-        scalePaint.setStyle(Paint.Style.STROKE);
-        scalePaint.setAntiAlias(true);
-        scalePaint.setStrokeWidth(scaleWidth);
-
-//        float virtualProgress = 50f;
-//        float totalScale = totalAngle / 360f * 28; // 18.667
-//        float scaleNum = virtualProgress / 100 * totalScale; // 9.33
-//        float initRotate = totalAngle / -2f + 2;
-//        float eachDegrees = 360f / 28;
-
-        float totalScale = totalAngle / 360f * 28;
-        float scaleNum = currentProgress / 100 * totalScale;
-        float initRotate = totalAngle / -2f + 2;
-        float eachDegrees = 360f / 28;
-
-        canvas.rotate(initRotate, centre, centre);
-        for (int i = 0; i < scaleNum; i++) {
-            canvas.drawLine(centre, (circleWidth - scaleSize) / 2, centre, (circleWidth - scaleSize) / 2 + scaleSize, scalePaint);
-            canvas.rotate(eachDegrees, centre, centre);
-        }
-        canvas.save();
-        canvas.restore();
-
+        drawCircle(canvas, centre, radius);
+        drawProgressText(canvas, centre);
+        drawBottomText(canvas, centre);
+        drawScale(canvas, centre);
         invalidate();
-    }
-
-    public float getMaxProgress() {
-        return maxProgress;
     }
 
     public void setMaxProgress(float maxProgress) {
@@ -176,10 +106,6 @@ public class CirCleProgressBar extends View {
         }
         this.maxProgress = maxProgress;
         section = totalAngle / maxProgress;
-    }
-
-    public void setAnimationDuration(int duration) {
-        this.duration = duration;
     }
 
     public void setCurrentProgress(float progress) {
@@ -208,54 +134,6 @@ public class CirCleProgressBar extends View {
         progressAnimator.start();
     }
 
-    public int getCircleColor() {
-        return circleColor;
-    }
-
-    public void setCircleColor(int circleColor) {
-        this.circleColor = circleColor;
-    }
-
-    public int getCircleBgColor() {
-        return circleBgColor;
-    }
-
-    public void setCircleBgColor(int circleBgColor) {
-        this.circleBgColor = circleBgColor;
-    }
-
-    public float getCircleWidth() {
-        return circleWidth;
-    }
-
-    public void setCircleWidth(float circleWidth) {
-        this.circleWidth = circleWidth;
-    }
-
-    public float getCircleBgWidth() {
-        return circleBgWidth;
-    }
-
-    public void setCircleBgWidth(float circleBgWidth) {
-        this.circleBgWidth = circleBgWidth;
-    }
-
-    public int getTextColor() {
-        return textColor;
-    }
-
-    public void setTextColor(int textColor) {
-        this.textColor = textColor;
-    }
-
-    public float getTextSize() {
-        return textSize;
-    }
-
-    public void setTextSize(float textSize) {
-        this.textSize = textSize;
-    }
-
     /**
      * @param isText 为true,自定义设置字体显示
      * @param text
@@ -265,18 +143,90 @@ public class CirCleProgressBar extends View {
         mTextValue = text;
     }
 
-    private float measureTextHeight(Paint paint) {
-        float height = 0f;
-        if (null == paint) {
-            return height;
+    /**
+     * 绘制圆
+     * @param canvas
+     * @param centre
+     * @param radius
+     */
+    private void drawCircle(Canvas canvas, int centre, int radius) {
+        circlePaint.setColor(circleBgColor);
+        circlePaint.setStyle(Paint.Style.STROKE);
+        circlePaint.setAntiAlias(true);
+        circlePaint.setStrokeCap(Paint.Cap.ROUND);// 圆头
+        circlePaint.setStrokeWidth(circleBgWidth);
+        circlePaint.setShader(null);
+        RectF oval = new RectF(centre - radius - 1, centre - radius - 1, centre + radius + 1, centre + radius + 1); // 用于定义的圆弧的形状和大小的界限
+        //背景圆
+        canvas.drawArc(oval, startAngle, totalAngle, false, circlePaint);
+        //数据圆
+        circlePaint.setStrokeWidth(circleWidth);
+
+        if (circleStartColor != 0 && circleEndColor != 0) {
+            int[] colors = new int[]{circleStartColor, circleEndColor};
+            LinearGradient linearGradient = new LinearGradient(0, 0, getWidth(), 0, colors, null, LinearGradient.TileMode.CLAMP);
+            circlePaint.setShader(linearGradient);
+        } else {
+            circlePaint.setColor(circleColor);
         }
-        Paint.FontMetrics fontMetrics = paint.getFontMetrics();
-        height = fontMetrics.descent - fontMetrics.ascent;
-        return height;
+        canvas.drawArc(oval, startAngle, currentAngle, false, circlePaint);
     }
 
-    private float measureTextWidth(Paint paint, String text) {
-        return paint.measureText(text);
+    /**
+     * 绘制刻度
+     * @param canvas
+     * @param centre
+     */
+    private void drawScale(Canvas canvas, int centre) {
+        scalePaint.setColor(scaleColor);
+        scalePaint.setStyle(Paint.Style.STROKE);
+        scalePaint.setAntiAlias(true);
+        scalePaint.setStrokeWidth(scaleWidth);
+
+        float totalScale = totalAngle / 360f * 28;
+        float scaleNum = currentProgress / 100 * totalScale;
+        float initRotate = totalAngle / -2f + 2;
+        float eachDegrees = 360f / 28;
+
+        canvas.rotate(initRotate, centre, centre);
+        for (int i = 0; i < scaleNum; i++) {
+            canvas.drawLine(centre, (circleWidth - scaleSize) / 2, centre, (circleWidth - scaleSize) / 2 + scaleSize, scalePaint);
+            canvas.rotate(eachDegrees, centre, centre);
+        }
+        canvas.save();
+        canvas.restore();
+    }
+
+    /**
+     * 绘制进度文案
+     * @param canvas
+     * @param centre
+     */
+    private void drawProgressText(Canvas canvas, int centre) {
+        textPaint.setAntiAlias(true);
+        textPaint.setColor(textColor);
+        textPaint.setTextSize(textSize);
+        float textWidth = textPaint.measureText((int) currentProgress + "");
+        if (!isDefaultText) {
+            canvas.drawText(String.valueOf((int) currentProgress), centre - textWidth / 2, centre + textSize / 4, textPaint);
+        } else {
+            canvas.drawText(mTextValue, centre - textWidth / 2, centre + textSize / 2, textPaint);
+        }
+    }
+
+    /**
+     * 绘制底部文案
+     * @param canvas
+     * @param centre
+     */
+    private void drawBottomText(Canvas canvas, int centre) {
+        if (!TextUtils.isEmpty(bottomText)) {
+            bottomTextPaint.setAntiAlias(true);
+            bottomTextPaint.setColor(bottomTextColor);
+            bottomTextPaint.setTextSize(bottomTextSize);
+            float bottomTextWidth = bottomTextPaint.measureText(bottomText);
+            canvas.drawText(bottomText, centre - bottomTextWidth / 2, centre + textSize / 2 + dp8, bottomTextPaint);
+        }
     }
 }
 
