@@ -9,4 +9,19 @@
         <attr name="isFill" />
     </declare-styleable>
 
+    <declare-styleable name="ymyy_CirCleProgressBar">
+        <attr name="ymyy_circle_color" format="color"/>
+        <attr name="ymyy_circle_start_color" format="color"/>
+        <attr name="ymyy_circle_end_color" format="color"/>
+        <attr name="ymyy_circle_bg_color" format="color"/>
+        <attr name="ymyy_circle_width" format="dimension"/>
+        <attr name="ymyy_circle_bg_width" format="dimension"/>
+        <attr name="ymyy_text_color" format="color"/>
+        <attr name="ymyy_text_size" format="dimension"/>
+        <attr name="ymyy_total_angle" format="integer"/>
+        <attr name="ymyy_start_angle" format="integer"/>
+        <attr name="ymyy_current_progress" format="float"/>
+        <attr name="ymyy_max_progress" format="float"/>
+    </declare-styleable>
+
 </resources>

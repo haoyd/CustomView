@@ -18,6 +18,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemClickListener {
             "绘制简单图形",
             "列表检索功能",
             "动画入口",
+            "仪表"
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +49,9 @@ class MainActivity : BaseActivity(), AdapterView.OnItemClickListener {
             }
             4 -> {
                 startPage(AnimEntranceActivity::class.java, title)
+            }
+            5 -> {
+                startPage(MeterActivity::class.java, title)
             }
             else -> {
                 startPage(LetterIndexActivity::class.java, title)

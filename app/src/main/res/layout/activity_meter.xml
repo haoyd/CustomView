@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".pages.MeterActivity">
+
+    <com.example.customview.views.shapes.CirCleProgressBar
+        android:id="@+id/circleProgressView"
+        android:layout_width="128dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        app:ymyy_circle_bg_color="#9a9a9a"
+        app:ymyy_circle_bg_width="12dp"
+        app:ymyy_circle_color="#FFC1DF"
+        app:ymyy_circle_start_color="#FFBFF2"
+        app:ymyy_circle_end_color="#EEA9FF"
+        app:ymyy_circle_width="12dp"
+        app:ymyy_max_progress="100"
+        app:ymyy_current_progress="80"
+        app:ymyy_start_angle="150"
+        app:ymyy_text_color="@color/black"
+        app:ymyy_text_size="48dp"
+        app:ymyy_total_angle="240"/>
+
+</LinearLayout>

@@ -9,8 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CustomView">
-        <activity
-            android:name=".pages.anim.LottieAnimActivity"></activity>
+        <activity android:name=".pages.MeterActivity"></activity>
+        <activity android:name=".pages.anim.LottieAnimActivity" />
         <activity android:name=".pages.anim.MoveChildActivity" />
         <activity android:name=".pages.anim.MovePointActivity" />
         <activity android:name=".pages.anim.ValueAnimActivity" />
