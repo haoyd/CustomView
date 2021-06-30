@@ -11,6 +11,7 @@ import android.view.View
 import com.blankj.utilcode.util.ConvertUtils
 import com.example.customview.R
 
+@SuppressLint("CustomViewStyleable")
 class CirCleProgressBar @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -48,6 +49,26 @@ class CirCleProgressBar @JvmOverloads constructor(
     private val bottomTextSize = ConvertUtils.dp2px(12f).toFloat()
     private val bottomTextColor = Color.parseColor("#AEAFB7")
     private val dp8 = ConvertUtils.dp2px(8f)
+
+    init {
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ymyy_CirCleProgressBar)
+        circleColor = typedArray.getColor(R.styleable.ymyy_CirCleProgressBar_ymyy_circle_color, Color.RED)
+        circleStartColor = typedArray.getColor(R.styleable.ymyy_CirCleProgressBar_ymyy_circle_start_color, 0)
+        circleEndColor = typedArray.getColor(R.styleable.ymyy_CirCleProgressBar_ymyy_circle_end_color, 0)
+        circleBgColor = typedArray.getColor(R.styleable.ymyy_CirCleProgressBar_ymyy_circle_bg_color, Color.YELLOW)
+        circleWidth = typedArray.getDimension(R.styleable.ymyy_CirCleProgressBar_ymyy_circle_width, 2f)
+        circleBgWidth = typedArray.getDimension(R.styleable.ymyy_CirCleProgressBar_ymyy_circle_bg_width, 2f)
+        textColor = typedArray.getColor(R.styleable.ymyy_CirCleProgressBar_ymyy_text_color, Color.BLUE)
+        textSize = typedArray.getDimension(R.styleable.ymyy_CirCleProgressBar_ymyy_text_size, 10f)
+        totalAngle = typedArray.getInteger(R.styleable.ymyy_CirCleProgressBar_ymyy_total_angle, 360)
+        startAngle = typedArray.getInteger(R.styleable.ymyy_CirCleProgressBar_ymyy_start_angle, 0)
+        currentProgress = typedArray.getFloat(R.styleable.ymyy_CirCleProgressBar_ymyy_current_progress, 0f)
+        maxProgress = typedArray.getFloat(R.styleable.ymyy_CirCleProgressBar_ymyy_max_progress, 100f)
+        showAnim = typedArray.getBoolean(R.styleable.ymyy_CirCleProgressBar_ymyy_show_anim, true)
+        setCurrentProgress(currentProgress)
+        setMaxProgress(maxProgress)
+        typedArray.recycle()
+    }
 
     @SuppressLint("DrawAllocation")
     override fun onDraw(canvas: Canvas) {
@@ -212,36 +233,5 @@ class CirCleProgressBar @JvmOverloads constructor(
                 bottomTextPaint
             )
         }
-    }
-
-    init {
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ymyy_CirCleProgressBar)
-        circleColor =
-            typedArray.getColor(R.styleable.ymyy_CirCleProgressBar_ymyy_circle_color, Color.RED)
-        circleStartColor =
-            typedArray.getColor(R.styleable.ymyy_CirCleProgressBar_ymyy_circle_start_color, 0)
-        circleEndColor =
-            typedArray.getColor(R.styleable.ymyy_CirCleProgressBar_ymyy_circle_end_color, 0)
-        circleBgColor = typedArray.getColor(
-            R.styleable.ymyy_CirCleProgressBar_ymyy_circle_bg_color,
-            Color.YELLOW
-        )
-        circleWidth =
-            typedArray.getDimension(R.styleable.ymyy_CirCleProgressBar_ymyy_circle_width, 2f)
-        circleBgWidth =
-            typedArray.getDimension(R.styleable.ymyy_CirCleProgressBar_ymyy_circle_bg_width, 2f)
-        textColor =
-            typedArray.getColor(R.styleable.ymyy_CirCleProgressBar_ymyy_text_color, Color.BLUE)
-        textSize = typedArray.getDimension(R.styleable.ymyy_CirCleProgressBar_ymyy_text_size, 10f)
-        totalAngle = typedArray.getInteger(R.styleable.ymyy_CirCleProgressBar_ymyy_total_angle, 360)
-        startAngle = typedArray.getInteger(R.styleable.ymyy_CirCleProgressBar_ymyy_start_angle, 0)
-        currentProgress =
-            typedArray.getFloat(R.styleable.ymyy_CirCleProgressBar_ymyy_current_progress, 0f)
-        maxProgress =
-            typedArray.getFloat(R.styleable.ymyy_CirCleProgressBar_ymyy_max_progress, 100f)
-        showAnim = typedArray.getBoolean(R.styleable.ymyy_CirCleProgressBar_ymyy_show_anim, true)
-        setCurrentProgress(currentProgress)
-        setMaxProgress(maxProgress)
-        typedArray.recycle()
     }
 }
