@@ -1,2 +1,2 @@
 # CustomView
-It's a Android custom view demo.
+It's an Android custom view demo.
